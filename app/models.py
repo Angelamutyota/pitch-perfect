@@ -78,17 +78,17 @@ class Comment(db.Model):
     def __repr__(self):
         return f'comment:{self.comment}'
 
-class Category(db.Model):
-    __tablename__ = 'category'
-    id = db.Column(db.Integer,primary_key=True)
-    name = db.Column(db.String(255))
-    pitch = db.relationship("Pitch",backref='category',lazy='dynamic')
+# class Category(db.Model):
+#     __tablename__ = 'category'
+#     id = db.Column(db.Integer,primary_key=True)
+#     name = db.Column(db.String(255))
+#     pitch_id = db.relationship("Pitch",backref='category',lazy='dynamic')
 
-    def __repr__(self):
-      return f'Category:{self.name}'
+#     def __repr__(self):
+#       return f'Category:{self.name}'
 
-class Votes(db.Model):
-    __tablename__ = 'votes'
+class Upvote(db.Model):
+    __tablename__ = 'Upvotes'
 
     id = db.Column(db.Integer,primary_key=True)
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
@@ -101,9 +101,28 @@ class Votes(db.Model):
 
     @classmethod
     def get_upvotes(cls,id):
-        upvote = Votes.query.filter_by(pitch_id=id).all()
+        upvote = Upvote.query.filter_by(pitch_id=id).all()
         return upvote
 
+
+    def __repr__(self):
+        return f'{self.user_id}:{self.pitch_id}'
+
+class Downvote(db.Model):
+    __tablename__ = 'downvotes'
+
+    id = db.Column(db.Integer,primary_key=True)
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    pitch_id = db.Column(db.Integer,db.ForeignKey('pitches.id'))
+    
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+    @classmethod
+    def get_downvotes(cls,id):
+        downvote = Downvote.query.filter_by(pitch_id=id).all()
+        return downvote
 
     def __repr__(self):
         return f'{self.user_id}:{self.pitch_id}'
