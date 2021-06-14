@@ -1,0 +1,34 @@
+{% macro displayPitches(pitch_list)%}
+
+   {% for pitch in pitch_list %}
+      <li>{{pitch.title}}</li>
+      <li>{{pitch.post}}</li>
+      <a href="{{url_for('main.comment_pitch',pitch_id=pitch.id)}}"><button type="button" class="btn btn-success">Comments</button></a>
+      <!-- <p>posted by {{pitch.name}} on {{pitch.posted}}</p> -->
+      <!-- <div>
+         <p>{{pitch}}</p><br>
+         <p>{{pitch}}</p>
+
+      </div>
+      <div>
+         <p>{{pitch.comments}}</p>
+      </div> -->
+   {% endfor %}
+
+{% endmacro %}
+
+{% macro displayComments(comments_list)%}
+      {% for comment in comment_list %}
+         <p>{{comment.get_comments()}}</p>
+         <blockquote>{{comment.posted}}</blockquote>
+      {% endfor%}
+{% endmacro %}
+
+{% macro displayPitches(pitch_list)%}
+
+
+    {% for pitch in pitch_list %}
+        <li>{{pitch.title}}:</li>
+        <li>{{pitch.post}}</li>
+        {% endfor %}
+{% endmacro %}
