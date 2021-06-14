@@ -91,3 +91,36 @@ def comment_pitch (pitch_id):
         new_comment.save_c()
         return redirect(url_for('.comment_pitch', pitch_id = pitch_id))
     return render_template('comments.html', form =form, pitch = pitch,all_comments=user_comments)
+
+@main.route('/upvoted/<int:id>',methods = ['POST','GET'])
+@login_required
+def upvoted(id):
+    get_pitches = Upvote.get_upvotes(id)
+    valid_string = f'{current_user.id}:{id}'
+    for pitch in get_pitches:
+        to_str = f'{pitch}'
+        print(valid_string+" "+to_str)
+        if valid_string == to_str:
+            return redirect(url_for('main.index',id=id))
+        else:
+            continue
+    new_vote = Upvote(user = current_user, pitch_id=id)
+    new_vote.save()
+    return redirect(url_for('main.index',id=id))
+
+@main.route('/downvoted/<int:id>',methods = ['POST','GET'])
+@login_required
+def downvoted(id):
+    pitch = Downvote.get_downvotes(id)
+    valid_string = f'{current_user.id}:{id}'
+    for p in pitch:
+        to_str = f'{p}'
+        print(valid_string+" "+to_str)
+        if valid_string == to_str:
+            return redirect(url_for('main.index',id=id))
+        else:
+            continue
+    new_downvote = Downvote(user = current_user, pitch_id=id)
+    new_downvote.save()
+    return redirect(url_for('main.index',id = id))
+

@@ -90,7 +90,7 @@ class Comment(db.Model):
 #       return f'Category:{self.name}'
 
 class Upvote(db.Model):
-    __tablename__ = 'Upvotes'
+    __tablename__ = 'upvotes'
 
     id = db.Column(db.Integer,primary_key=True)
     votes = db.column(db.Integer)
