@@ -3,9 +3,32 @@
 
 
 {% block content%}
+<h1 class="text-center">CATEGORIES</h1>
 <div>
+    <h2>General Pitches</h2>
     {{macro.displayPitches(pitches)}}
 </div>
 
+<div>
+    <h2>Food Industry</h2>
+    {{macro.displayPitches(food)}}
+</div>
+
+<div>
+    <h2>IT</h2>
+    {{macro.displayPitches(it)}}
+</div>
+
+<div>
+    <h2>Sports</h2>
+    {{macro.displayPitches(sports)}}
+</div>
+
+<div>
+    <h2>Entertainment</h2>
+    {{macro.displayPitches(entertainment)}}
+</div>
+
+<footer class="text-center "> 2021 Angela Mbithe</footer>
 
 {% endblock %}

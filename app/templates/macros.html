@@ -1,12 +1,21 @@
 {% macro displayPitches(pitch_list)%}
 
    {% for pitch in pitch_list %}
-      <li>{{pitch.title}}</li>
-      <li>{{pitch.post}}</li>
-      <a href="{{url_for('main.comment_pitch',pitch_id=pitch.id)}}"><button type="button" class="btn btn-success">Comments</button></a>
-      <button class="foot" > <a href="{{url_for('main.upvoted',id = pitch.id)}}"><i class="fa fa-thumbs-up" style="font-size:18px;color: green"></i></a> upvotes {{pitch.upvote.count()}}</button>
-      <button class="foot" > <a href="{{url_for('main.downvoted',id = pitch.id)}}"><i class="fa fa-thumbs-up" style="font-size:18px;color: green"></i></a> downvotes {{pitch.downvote.count()}}</button>
-
+   <div class="container-fluid">
+         <div class="row">
+      <div class="col-sm-6">
+         <div class="card">
+            <div class="card-body">
+               <h5 class="card-title">{{pitch.title}}</h5>
+               <li>{{pitch.post}}</li>
+               <a href="{{url_for('main.comment_pitch',pitch_id=pitch.id)}}"><button type="button" class="btn btn-success">Comments</button></a>
+               <button class="foot" > <a href="{{url_for('main.upvoted',id = pitch.id)}}"></a> upvotes {{pitch.upvote.count()}}</button>
+               <button class="foot" > <a href="{{url_for('main.downvoted',id = pitch.id)}}"></a> downvotes {{pitch.downvote.count()}}</button> 
+            </div>
+         </div>
+      </div>
+   </div>
+   </div>
    {% endfor %}
 
 {% endmacro %}

@@ -10,8 +10,15 @@ from app.main import form
 @main.route('/')
 def index ():
     pitches = Pitch.query.filter_by().all()
+    food = Pitch.query.filter_by(category = 'Food').all()
+    it = Pitch.query.filter_by(category = 'IT').all() 
+    entertainment = Pitch.query.filter_by(category = 'Entertainment').all() 
+    sports = Pitch.query.filter_by(category = 'Sports').all() 
+
+
+
     title = "Home- This is the perfect spot to present your pitch to the world"
-    return render_template('index.html', title= title, pitches= pitches)
+    return render_template('index.html', title= title, pitches= pitches, food=food, it=it, entertainment=entertainment,sports=sports)
 
 @main.route('/pitch/<int:pitch_id>', methods = ['GET', 'POST'])
 def pitch(pitch_id):
@@ -95,9 +102,9 @@ def comment_pitch (pitch_id):
 @main.route('/upvoted/<int:id>',methods = ['POST','GET'])
 @login_required
 def upvoted(id):
-    get_pitches = Upvote.get_upvotes(id)
+    like_pitches = Upvote.get_upvotes(id)
     valid_string = f'{current_user.id}:{id}'
-    for pitch in get_pitches:
+    for pitch in like_pitches:
         to_str = f'{pitch}'
         print(valid_string+" "+to_str)
         if valid_string == to_str:
@@ -105,6 +112,7 @@ def upvoted(id):
         else:
             continue
     new_vote = Upvote(user = current_user, pitch_id=id)
+    new_vote.id+=1
     new_vote.save()
     return redirect(url_for('main.index',id=id))
 
