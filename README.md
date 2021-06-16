@@ -26,7 +26,7 @@ To get the code..
 
 2. Move to the folder and install requirements
   ```bash
-  cd News_API
+  cd pitch-perfect
   pip install -r requirements.txt
   ```
 
