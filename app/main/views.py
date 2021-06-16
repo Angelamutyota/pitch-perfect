@@ -26,6 +26,7 @@ def pitch(pitch_id):
     return render_template('pitch.html', pitches= pitches)
 
 @main.route ('/user/<name>')
+@login_required
 def profile(name):
     user = User.query.filter_by(username = name).first()
     pitches = Pitch.query.filter_by(user_id=current_user.id).all()
@@ -37,6 +38,7 @@ def profile(name):
     return render_template('profile/profile.html', user = user, pitches= pitches)
 
 @main.route('/user/<name>/profileupdate', methods = ['GET', 'POST'])
+@login_required
 def profileupdate(name):
     user = User.query.filter_by(username = name).first()
     form = UpdateProfile()
@@ -111,9 +113,9 @@ def upvoted(id):
             return redirect(url_for('main.index',id=id))
         else:
             continue
-    new_vote = Upvote(user = current_user, pitch_id=id)
-    new_vote.id+=1
-    new_vote.save()
+    new_upvote = Upvote(user = current_user, pitch_id=id)
+    new_upvote= like_pitches=+1
+    new_upvote.save()
     return redirect(url_for('main.index',id=id))
 
 @main.route('/downvoted/<int:id>',methods = ['POST','GET'])
@@ -129,6 +131,7 @@ def downvoted(id):
         else:
             continue
     new_downvote = Downvote(user = current_user, pitch_id=id)
+    new_downvote= pitch=+1
     new_downvote.save()
     return redirect(url_for('main.index',id = id))
 
